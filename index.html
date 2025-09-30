@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajay Chavda - Software Developer (Gemini Style)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Gemini/Dark Mode Palette */
+        :root {
+            --color-google-blue: #4285F4; /* Primary Accent */
+            --color-deep-bg: #0A0A0A; /* Near Black / Base Background */
+            --color-card-bg: #1E1E1E; /* Primary Card/Container Background */
+            --color-text-light: #E0E0E0; /* Near White for main text */
+            --color-text-secondary: #AAAAAA; /* Gray for secondary text */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-deep-bg);
+            color: var(--color-text-light); 
+        }
+        
+        /* Core container style: highly rounded, soft shadow */
+        .gemini-container {
+            background-color: var(--color-card-bg);
+            border: 1px solid #333333;
+            border-radius: 2rem; /* Large, soft rounding */
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* The central focus box (AI simulation) */
+        .gemini-focus-box {
+            /* Large shadow for presence, mimicking the search bar "lift" */
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 10px rgba(66, 133, 244, 0.1);
+        }
+
+        .primary-color-text {
+            color: var(--color-google-blue); 
+        }
+
+        /* Keyframe animation for color cycling */
+        @keyframes color-shift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Subtle gradient for titles */
+        .modern-text-gradient {
+            background-image: linear-gradient(to right, #ffffff, var(--color-google-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            /* Applying the continuous animation */
+            animation: color-shift 10s linear infinite; /* Slow, continuous loop */
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: var(--color-google-blue);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        /* Custom pill-shaped button style */
+        .gemini-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        
+        /* Style for form inputs to match Gemini look */
+        .gemini-input {
+            width: 100%;
+            padding: 1rem;
+            background-color: #0A0A0A; /* Darker than card background */
+            border: 1px solid #333333;
+            border-radius: 0.75rem; /* Slightly less rounded than container */
+            color: var(--color-text-light);
+            transition: border-color 0.2s;
+        }
+        .gemini-input:focus {
+            outline: none;
+            border-color: var(--color-google-blue);
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- Minimalist Header -->
+    <header class="sticky top-0 z-50 py-4 bg-[var(--color-deep-bg)]/90 backdrop-blur-md border-b border-[#333333]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex-shrink-0">
+                <h1 class="text-2xl font-bold text-white tracking-wider">
+                    AJAY CHAVDA<span class="primary-color-text text-3xl font-extrabold">.</span>
+                </h1>
+            </div>
+            <div class="hidden md:block">
+                <nav class="flex space-x-6">
+                    <a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a>
+                    <a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a>
+                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
+                    <a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section - Focus on the Developer role -->
+        <section id="hero" class="py-16 md:py-24 bg-[var(--color-deep-bg)]">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-7xl font-extrabold tracking-tight modern-text-gradient">SOFTWARE DEVELOPER</h2>
+                <p class="mt-4 text-xl font-medium text-gray-400">Building scalable systems with C# and the .NET ecosystem.</p>
+            </div>
+        </section>
+        
+        <!-- Gemini Interaction Core Section -->
+        <section id="interview" class="py-12 sm:py-20 bg-[var(--color-deep-bg)]">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Central Focus Box: Designed like the Gemini Input Field -->
+                <div class="gemini-container gemini-focus-box p-4 sm:p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-center text-white">Ask Me Anything or Start AI Interview</h3>
+                    
+                    <div class="flex items-center space-x-3">
+                        <input id="user-prompt" type="text" placeholder="e.g., Explain ASP.NET MVC architecture..." 
+                               class="flex-grow p-3 text-sm bg-transparent border border-[#333333] rounded-full focus:outline-none focus:border-blue-500 placeholder-gray-500 text-white" />
+                        
+                        <button id="generate-questions-btn" class="gemini-button bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Output Area -->
+                <div id="loading-indicator" class="hidden text-center primary-color-text font-semibold mt-8">
+                    <div class="spinner"></div>
+                    <p class="inline-block align-middle ml-2 text-sm">Generating personalized response...</p>
+                </div>
+
+                <div id="questions-output" class="hidden mt-8">
+                    <div id="questions-list" class="space-y-4">
+                        <!-- Questions will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- About Me Section -->
+            <section id="about" class="py-12 border-t border-[#333333]">
+                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">About Me</h3>
+                <div class="gemini-container p-6 text-gray-300">
+                    <p class="text-lg leading-relaxed text-justify">
+                        Highly motivated and results-driven individual with a Bachelor of Engineering in Computer Science and practical experience in full-stack web development. Proven ability to quickly learn and apply new technologies, demonstrated through work as a .NET Developer and during an intensive Summer Internship at IBM. Seeking to leverage professional skills, capabilities, and technical knowledge in a challenging organization that values hard work and offers opportunities for growth.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Experience Section -->
+            <section id="experience" class="py-12 border-t border-[#333333]">
+                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Experience Log</h3>
+                <div class="space-y-6">
+                    <!-- Experience Item 1 -->
+                    <div class="gemini-container p-6">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-xl text-white">.NET Developer <span class="text-sm font-normal text-gray-500">@ RebbitWeb</span></h4>
+                            <p class="text-sm font-medium primary-color-text">Feb 2025 – Present</p>
+                        </div>
+                        <ul class="mt-4 list-disc list-inside text-sm text-gray-400 space-y-2">
+                            <li>Developed and maintained robust web applications using the **ASP.NET MVC** framework.</li>
+                            <li>Managed and optimized database operations using **MySQL** for data persistence and retrieval.</li>
+                            <li>Collaborated with a team to deliver features on time, consistently meeting project deadlines.</li>
+                        </ul>
+                    </div>
+                    <!-- Experience Item 2 -->
+                    <div class="gemini-container p-6">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-xl text-white">Summer Internship <span class="text-sm font-normal text-gray-500">@ IBM</span></h4>
+                            <p class="text-sm font-medium primary-color-text">Sep 2024 – Feb 2025</p>
+                        </div>
+                        <ul class="mt-4 list-disc list-inside text-sm text-gray-400 space-y-2">
+                            <li>Contributed to a real-world project, gaining hands-on experience in the **software development lifecycle (SDLC)**.</li>
+                            <li>Assisted senior developers with code review and debugging.</li>
+                            <li>Gained exposure to enterprise-level development practices.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="py-12 border-t border-[#333333]">
+                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Technical Skills</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-lg mb-3 primary-color-text">Languages</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">C</span>
+                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">C#</span>
+                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">Python</span>
+                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">JavaScript</span>
+                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">SQL</span>
+                        </div>
+                    </div>
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-lg mb-3 primary-color-text">Frameworks</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="gemini-button bg-blue-800/70 text-sm px-3 py-1 text-white">ASP.NET MVC</span>
+                            <span class="gemini-button bg-blue-800/70 text-sm px-3 py-1 text-white">Bootstrap</span>
+                        </div>
+                    </div>
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-lg mb-3 primary-color-text">Databases</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="gemini-button bg-green-800/70 text-sm px-3 py-1 text-white">MySQL</span>
+                            <span class="gemini-button bg-green-800/70 text-sm px-3 py-1 text-white">SQL Server</span>
+                        </div>
+                    </div>
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-lg mb-3 primary-color-text">Tools</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">Git</span>
+                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">SEO</span>
+                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">SDLC</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-12 border-t border-[#333333]">
+                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Featured Projects</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Project 1 -->
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-xl mb-2 text-white">Bus Rental System</h4>
+                        <p class="text-sm text-gray-500 mb-4">Technology Stack: ASP.NET MVC, MySQL, Bootstrap</p>
+                        <p class="text-gray-400 text-sm">
+                            A complete system to manage bus bookings, fleet status, and customer accounts.
+                            This project demonstrates full-stack development proficiency in MVC pattern and relational database management.
+                        </p>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="gemini-container p-6">
+                        <h4 class="font-bold text-xl mb-2 text-white">Petroleum Management System (PMS)</h4>
+                        <p class="text-sm text-gray-500 mb-4">Technology Stack: C#, SQL Server, Bootstrap</p>
+                        <p class="text-gray-400 text-sm">
+                            An application designed for real-time tracking of fuel inventory, price fluctuations, and sales records.
+                            Highlights expertise in C# backend development and complex SQL Server data handling.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Section (NEW) -->
+            <section id="contact" class="py-12 border-t border-[#333333]">
+                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Get In Touch</h3>
+                <div class="max-w-xl mx-auto">
+                    <div class="gemini-container p-8">
+                        <!-- 
+                            IMPORTANT: 
+                            To make this form work, you MUST sign up for a service like Formspree (https://formspree.io) 
+                            and replace the action URL below with your unique endpoint. 
+                            The current URL is a placeholder/test URL.
+                        -->
+                        <form action="https://formspree.io/f/xbjnqjjz" method="POST" class="space-y-6">
+                            
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                                <input type="text" id="name" name="name" required class="gemini-input" placeholder="Your Name">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" name="_replyto" required class="gemini-input" placeholder="you@example.com">
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                                <textarea id="description" name="description" rows="5" required class="gemini-input" placeholder="Tell me about your project or opportunity..."></textarea>
+                            </div>
+
+                            <button type="submit" class="gemini-button w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold tracking-wider">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-black text-gray-500 py-8 border-t border-blue-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Ajay Chavda. UI inspired by Google Gemini. <a href="#hero" class="primary-color-text hover:text-blue-400">Back to Top</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Gemini API Logic for Interview Generation ---
+
+            const apiKey = ""; // API key is provided at runtime
+            const modelName = 'gemini-2.5-flash-preview-05-20';
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+            // Helper function for exponential backoff retry logic
+            async function fetchWithBackoff(url, options, maxRetries = 5) {
+                for (let i = 0; i < maxRetries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) {
+                            if (response.status === 429) {
+                                throw new Error('Rate limit exceeded');
+                            }
+                            const errorBody = await response.text();
+                            throw new Error(`API error: ${response.status} ${response.statusText}. Body: ${errorBody}`);
+                        }
+                        return response;
+                    } catch (error) {
+                        if (i === maxRetries - 1 || error.message.includes('API error')) {
+                            throw error; // Last retry or permanent error
+                        }
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            }
+            
+            // Function to generate and display questions
+            async function generateInterviewQuestions(isSpecificPrompt) {
+                const btn = document.getElementById('generate-questions-btn');
+                const loadingIndicator = document.getElementById('loading-indicator');
+                const outputDiv = document.getElementById('questions-output');
+                const questionsList = document.getElementById('questions-list');
+                const userPromptElement = document.getElementById('user-prompt');
+                const customPrompt = userPromptElement.value.trim();
+
+                // 1. Gather Content from the Resume (or use custom prompt)
+                let userQuery = '';
+                let systemPrompt = '';
+                
+                if (isSpecificPrompt && customPrompt) {
+                    // Scenario 1: User asked a specific question
+                    systemPrompt = "You are an expert technical advisor. Answer the user's question clearly, concisely, and accurately, keeping the tone professional but helpful. Format the output neatly using paragraphs.";
+                    userQuery = customPrompt;
+                } else {
+                    // Scenario 2: Initiate mock interview (default action)
+                    const experienceElements = document.querySelectorAll('#experience ul li');
+                    const experienceText = Array.from(experienceElements).map(li => li.textContent.trim()).join('; ');
+                    const skillElements = document.querySelectorAll('#skills .gemini-button');
+                    const skillsText = Array.from(skillElements).map(span => span.textContent.trim()).join(', ');
+
+                    systemPrompt = "You are a highly demanding Senior Software Engineering Manager conducting a technical interview. Your goal is to generate exactly 5 challenging and specific interview questions (a mix of behavioral and technical) based *only* on the candidate's provided resume data. The questions must be formatted as a numbered list starting with '1.'. Do not include any introduction, conclusion, or conversational text.";
+                    
+                    userQuery = `
+                        Generate interview questions based on this professional profile:
+                        --- EXPERIENCE ---
+                        ${experienceText.trim()}
+                        --- SKILLS ---
+                        ${skillsText.trim()}
+                    `;
+                }
+
+                // 2. UI State Management (Loading)
+                btn.disabled = true;
+                outputDiv.classList.add('hidden');
+                questionsList.innerHTML = '';
+                loadingIndicator.classList.remove('hidden');
+
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                };
+
+                try {
+                    // 3. Call the Gemini API
+                    const response = await fetchWithBackoff(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (generatedText) {
+                        // 4. Format and Display Output
+                        let htmlOutput = '';
+                        
+                        if (isSpecificPrompt && customPrompt) {
+                            // Format for Chat Response
+                            htmlOutput = `
+                                <div class="p-4 gemini-container bg-[#282828] border-none">
+                                    <h4 class="text-white font-bold mb-2 primary-color-text">AI Assistant Response:</h4>
+                                    <p class="text-gray-300 whitespace-pre-line">${generatedText}</p>
+                                </div>
+                            `;
+                            userPromptElement.value = ''; // Clear input field
+                        } else {
+                            // Format for Interview Questions (List)
+                            const questionTitle = `<h4 class="text-xl font-bold primary-color-text mb-4 border-b border-[#333333] pb-2">Technical Assessment Questions:</h4>`;
+                            
+                            const listItems = generatedText
+                                .split('\n')
+                                .filter(line => line.trim().length > 0 && line.match(/^\d+\./))
+                                .map(line => {
+                                    const content = line.replace(/^\d+\.\s*/, '');
+                                    // Clean card style for individual questions
+                                    return `<div class="p-4 bg-gray-900/50 rounded-lg border border-[#333333]">
+                                                <p>
+                                                    <span class="primary-color-text font-semibold mr-2">${line.match(/^\d+/)[0]}.</span> ${content}
+                                                </p>
+                                            </div>`;
+                                })
+                                .join('');
+                            
+                            htmlOutput = questionTitle + listItems;
+                        }
+                        
+                        questionsList.innerHTML = htmlOutput;
+                        
+                    } else {
+                        questionsList.innerHTML = '<p class="p-4 text-red-400 bg-gray-900 rounded-lg">Error: The AI analysis failed to return a response.</p>';
+                    }
+                    outputDiv.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    questionsList.innerHTML = `<p class="p-4 text-red-400 bg-gray-900 rounded-lg">Connection Error: Failed to reach the AI service. (${error.message})</p>`;
+                    outputDiv.classList.remove('hidden');
+                } finally {
+                    // 5. Reset UI State
+                    loadingIndicator.classList.add('hidden');
+                    btn.disabled = false;
+                }
+            }
+
+            // Determine if the user is asking a question or running the mock interview
+            document.getElementById('generate-questions-btn').addEventListener('click', () => {
+                const customPrompt = document.getElementById('user-prompt').value.trim();
+                const isSpecificPrompt = customPrompt.length > 0 && !customPrompt.toLowerCase().includes('interview');
+                generateInterviewQuestions(isSpecificPrompt);
+            });
+
+            // Initial state message
+            const initialList = document.getElementById('questions-list');
+            if (initialList) {
+                initialList.innerHTML = '<p class="p-4 text-gray-500 text-center gemini-container bg-[#282828] border-none">Your AI response or interview questions will appear here.</p>';
+                document.getElementById('questions-output').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
