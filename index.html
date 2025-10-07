@@ -3,473 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajay Chavda - Software Developer (Gemini Style)</title>
+    <title>Ajay Chavda - Interactive Resume</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* Gemini/Dark Mode Palette */
+        /* Define Light Mode colors and custom accent (Material Design inspired) */
         :root {
-            --color-google-blue: #4285F4; /* Primary Accent */
-            --color-deep-bg: #0A0A0A; /* Near Black / Base Background */
-            --color-card-bg: #1E1E1E; /* Primary Card/Container Background */
-            --color-text-light: #E0E0E0; /* Near White for main text */
-            --color-text-secondary: #AAAAAA; /* Gray for secondary text */
+            --bg-light: #FFFFFF; /* Pure White */
+            --text-dark: #3C4043; /* Dark Gray for main text (Google standard) */
+            --accent: #4285F4; /* Google Blue */
+            --card-bg: #FFFFFF; /* White for cards */
+            --light-bg: #F8F9FA; /* Subtle light gray background for sections (professional) */
         }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-deep-bg);
-            color: var(--color-text-light); 
+            /* Using Roboto, a font associated with Google's Material Design */
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+        
+        /* General Card/Element Hover Effect */
+        .card-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            /* Subtle blue shadow for elevation */
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2); 
+            transform: translateY(-2px);
         }
         
-        /* Core container style: highly rounded, soft shadow */
-        .gemini-container {
-            background-color: var(--color-card-bg);
-            border: 1px solid #333333;
-            border-radius: 2rem; /* Large, soft rounding */
-            transition: box-shadow 0.3s ease;
+        /* Skill Badge adapted for Light Mode */
+        .skill-badge {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: 1px solid #E0E0E0; /* Light gray border */
+        }
+        .skill-badge.active, .skill-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3); /* Blue glow */
+            background-color: var(--accent);
+            color: white; /* White text on blue badge */
+            font-weight: 700;
+            border-color: var(--accent);
         }
 
-        /* The central focus box (AI simulation) */
-        .gemini-focus-box {
-            /* Large shadow for presence, mimicking the search bar "lift" */
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 10px rgba(66, 133, 244, 0.1);
+        /* Timeline Specific Styles for Interactive Resume */
+        .timeline-item {
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+            transform: scale(1);
         }
-
-        .primary-color-text {
-            color: var(--color-google-blue); 
+        .timeline-item.filtered {
+            opacity: 0.3;
+            transform: scale(0.98);
         }
-
-        /* Keyframe animation for color cycling */
-        @keyframes color-shift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+         .timeline-item.highlight .timeline-card {
+            box-shadow: 0 6px 15px rgba(66, 133, 244, 0.4); 
+            transform: scale(1.01);
+            border-color: var(--accent) !important;
         }
-
-        /* Subtle gradient for titles */
-        .modern-text-gradient {
-            background-image: linear-gradient(to right, #ffffff, var(--color-google-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            /* Applying the continuous animation */
-            animation: color-shift 10s linear infinite; /* Slow, continuous loop */
+        .timeline-dot {
+            transition: all 0.3s ease-in-out;
+            border-color: var(--bg-light) !important; /* Border color matches main background */
+        }
+        .timeline-item.highlight .timeline-dot {
+            background-color: var(--accent);
+            transform: scale(1.5) translate(-50%, -50%);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: var(--color-google-blue);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        
-        /* Custom pill-shaped button style */
-        .gemini-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.75rem;
-            border-radius: 9999px; /* Pill shape */
-            font-weight: 500;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-        
-        /* Style for form inputs to match Gemini look */
-        .gemini-input {
-            width: 100%;
-            padding: 1rem;
-            background-color: #0A0A0A; /* Darker than card background */
-            border: 1px solid #333333;
-            border-radius: 0.75rem; /* Slightly less rounded than container */
-            color: var(--color-text-light);
-            transition: border-color 0.2s;
-        }
-        .gemini-input:focus {
-            outline: none;
-            border-color: var(--color-google-blue);
+        /* Hero and Contact Background */
+        #hero, #contact {
+             background-color: var(--light-bg);
         }
     </style>
 </head>
-<body class="text-gray-200">
+<body class="antialiased">
 
-    <!-- Minimalist Header -->
-    <header class="sticky top-0 z-50 py-4 bg-[var(--color-deep-bg)]/90 backdrop-blur-md border-b border-[#333333]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <div class="flex-shrink-0">
-                <h1 class="text-2xl font-bold text-white tracking-wider">
-                    AJAY CHAVDA<span class="primary-color-text text-3xl font-extrabold">.</span>
-                </h1>
-            </div>
-            <div class="hidden md:block">
-                <nav class="flex space-x-6">
-                    <a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a>
-                    <a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a>
-                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
-                    <a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a>
-                    <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
-                </nav>
-            </div>
+    <!-- Sticky Navigation Bar (Clean Light Mode) -->
+    <header id="navbar" class="bg-white sticky top-0 z-50 shadow transition-shadow duration-300 border-b border-gray-100">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <a href="#" class="text-3xl font-bold tracking-wider text-gray-900">AJAY CHAVDA</a>
+            <nav class="flex space-x-6 md:space-x-10 mt-3 md:mt-0">
+                <a href="#summary" class="text-gray-600 hover:text-blue-600 font-medium transition">Summary</a>
+                <a href="#skills" class="text-gray-600 hover:text-blue-600 font-medium transition">Skills</a>
+                <a href="#experience" class="text-gray-600 hover:text-blue-600 font-medium transition">Experience</a>
+                <a href="#education" class="text-gray-600 hover:text-blue-600 font-medium transition">Education</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium transition">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section - Focus on the Developer role -->
-        <section id="hero" class="py-16 md:py-24 bg-[var(--color-deep-bg)]">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-4xl md:text-7xl font-extrabold tracking-tight modern-text-gradient">SOFTWARE DEVELOPER</h2>
-                <p class="mt-4 text-xl font-medium text-gray-400">Building scalable systems with C# and the .NET ecosystem.</p>
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <!-- Hero/Header Section (Resume Style) -->
+        <section id="hero" class="text-center mb-24 py-16 rounded-3xl">
+            <h1 class="text-5xl md:text-6xl font-black mb-4 text-gray-900">AJAY CHAVDA</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-600 font-medium">
+                Aspiring <span id="role-cycler" class="font-extrabold transition-colors duration-500" style="color: var(--accent);">Python Developer</span>
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-gray-600 mb-8 font-light text-lg">
+                 <span>+91 91578 18145</span> 
+                 <span class="hidden sm:inline" style="color: var(--accent);">•</span>
+                 <span>chavdaajay202@gmail.com</span>
+                 <span class="hidden sm:inline" style="color: var(--accent);">•</span>
+                 <a href="https://linkedin.com/in/chavdaajay" target="_blank" class="text-gray-600 hover:text-blue-600 transition">LinkedIn</a>
+                 <span class="hidden sm:inline" style="color: var(--accent);">•</span>
+                 <a href="https://github.com/CodeWibe" target="_blank" class="text-gray-600 hover:text-gray-900 transition">GitHub</a>
+            </div>
+        </section>
+
+        <!-- Summary Section (Professional Summary) -->
+        <section id="summary" class="mb-24 scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 border-b pb-4">PROFESSIONAL SUMMARY</h2>
+            <div class="max-w-4xl mx-auto p-10 rounded-2xl shadow-xl card-hover-effect border-t-4 border-transparent" style="background-color: var(--card-bg);">
+                <p class="text-xl text-gray-700 leading-relaxed font-light">
+                    I am a highly motivated Computer Science Engineering student focused on leveraging **Python** to build intelligent solutions and practical web applications. I possess strong fundamentals in **OOP, Data Science, and Web Development**. I am seeking an internship to apply my technical expertise from programs like IBM SkillsBuild and Cisco Networking Academy to real-world software challenges, transforming concepts into scalable code.
+                </p>
             </div>
         </section>
         
-        <!-- Gemini Interaction Core Section -->
-        <section id="interview" class="py-12 sm:py-20 bg-[var(--color-deep-bg)]">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Central Focus Box: Designed like the Gemini Input Field -->
-                <div class="gemini-container gemini-focus-box p-4 sm:p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-center text-white">Ask Me Anything or Start AI Interview</h3>
-                    
-                    <div class="flex items-center space-x-3">
-                        <input id="user-prompt" type="text" placeholder="e.g., Explain ASP.NET MVC architecture..." 
-                               class="flex-grow p-3 text-sm bg-transparent border border-[#333333] rounded-full focus:outline-none focus:border-blue-500 placeholder-gray-500 text-white" />
-                        
-                        <button id="generate-questions-btn" class="gemini-button bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50 disabled:cursor-not-allowed">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </button>
+        <!-- Skills Section -->
+        <section id="skills" class="mb-24 scroll-mt-20">
+            <h2 class="text-4xl font-bold text-center mb-6 text-gray-800 border-b pb-4">TECHNICAL SKILLS</h2>
+            <p class="text-center text-gray-500 mb-10">Select a skill to highlight relevant experience.</p>
+            
+            <div class="flex justify-center mb-10">
+                 <button id="reset-filter" class="skill-badge active bg-gray-200 text-gray-700 px-6 py-2.5 rounded-full text-sm font-semibold shadow-md hover:bg-gray-300">Show All Experience</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="p-6 rounded-2xl shadow-lg card-hover-effect border-t-2 border-red-500 bg-white">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Core Languages</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="Python">Python</span>
+                        <span class="skill-badge bg-green-50 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="SQL">SQL</span>
+                        <span class="skill-badge bg-yellow-50 text-yellow-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="JavaScript">JavaScript</span>
                     </div>
                 </div>
-
-                <!-- AI Output Area -->
-                <div id="loading-indicator" class="hidden text-center primary-color-text font-semibold mt-8">
-                    <div class="spinner"></div>
-                    <p class="inline-block align-middle ml-2 text-sm">Generating personalized response...</p>
+                <div class="p-6 rounded-2xl shadow-lg card-hover-effect border-t-2 border-purple-500 bg-white">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Data & ML</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge bg-purple-50 text-purple-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="scikit-learn">scikit-learn</span>
+                        <span class="skill-badge bg-pink-50 text-pink-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="Data Preprocessing">Data Preprocessing</span>
+                        <span class="skill-badge bg-gray-50 text-gray-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="Model Evaluation">Model Evaluation</span>
+                        <span class="skill-badge bg-teal-50 text-teal-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="OOP">OOP</span>
+                    </div>
                 </div>
-
-                <div id="questions-output" class="hidden mt-8">
-                    <div id="questions-list" class="space-y-4">
-                        <!-- Questions will be dynamically inserted here -->
+                 <div class="p-6 rounded-2xl shadow-lg card-hover-effect border-t-2 border-orange-500 bg-white">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Web & Tools</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge bg-red-50 text-red-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="HTML">HTML</span>
+                        <span class="skill-badge bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="CSS">CSS</span>
+                        <span class="skill-badge bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="MySQL">MySQL</span>
+                        <span class="skill-badge bg-lime-50 text-lime-700 px-4 py-1.5 rounded-full text-sm font-medium" data-skill="IBM Watson Studio">IBM Watson Studio</span>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <!-- About Me Section -->
-            <section id="about" class="py-12 border-t border-[#333333]">
-                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">About Me</h3>
-                <div class="gemini-container p-6 text-gray-300">
-                    <p class="text-lg leading-relaxed text-justify">
-                        Highly motivated and results-driven individual with a Bachelor of Engineering in Computer Science and practical experience in full-stack web development. Proven ability to quickly learn and apply new technologies, demonstrated through work as a .NET Developer and during an intensive Summer Internship at IBM. Seeking to leverage professional skills, capabilities, and technical knowledge in a challenging organization that values hard work and offers opportunities for growth.
-                    </p>
-                </div>
-            </section>
+
+        <!-- Internship Experience Section (Timeline Layout) -->
+        <section id="experience" class="scroll-mt-20 mb-24">
+            <h2 class="text-4xl font-bold text-center mb-10 text-gray-800 border-b pb-4">INTERNSHIP EXPERIENCE</h2>
             
-            <!-- Experience Section -->
-            <section id="experience" class="py-12 border-t border-[#333333]">
-                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Experience Log</h3>
-                <div class="space-y-6">
-                    <!-- Experience Item 1 -->
-                    <div class="gemini-container p-6">
-                        <div class="flex justify-between items-start">
-                            <h4 class="font-bold text-xl text-white">.NET Developer <span class="text-sm font-normal text-gray-500">@ RebbitWeb</span></h4>
-                            <p class="text-sm font-medium primary-color-text">Feb 2025 – Present</p>
+            <div id="timeline-container" class="relative max-w-4xl mx-auto py-4">
+                <!-- Vertical Line (Timeline Backbone) -->
+                <div class="absolute left-1/2 w-0.5 h-full bg-gray-200 -translate-x-1/2 hidden md:block"></div>
+                
+                 <!-- Item 1: Predictive Model Development -->
+                 <div class="timeline-item mt-8 relative" data-skills="scikit-learn,IBM Watson Studio,Data Preprocessing,Model Evaluation,Python">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 text-center md:text-right md:pr-10 mb-4 md:mb-0">
+                            <p class="text-sm text-gray-500 font-medium">Jun 2024 – Sep 2024</p>
                         </div>
-                        <ul class="mt-4 list-disc list-inside text-sm text-gray-400 space-y-2">
-                            <li>Developed and maintained robust web applications using the **ASP.NET MVC** framework.</li>
-                            <li>Managed and optimized database operations using **MySQL** for data persistence and retrieval.</li>
-                            <li>Collaborated with a team to deliver features on time, consistently meeting project deadlines.</li>
-                        </ul>
-                    </div>
-                    <!-- Experience Item 2 -->
-                    <div class="gemini-container p-6">
-                        <div class="flex justify-between items-start">
-                            <h4 class="font-bold text-xl text-white">Summer Internship <span class="text-sm font-normal text-gray-500">@ IBM</span></h4>
-                            <p class="text-sm font-medium primary-color-text">Sep 2024 – Feb 2025</p>
-                        </div>
-                        <ul class="mt-4 list-disc list-inside text-sm text-gray-400 space-y-2">
-                            <li>Contributed to a real-world project, gaining hands-on experience in the **software development lifecycle (SDLC)**.</li>
-                            <li>Assisted senior developers with code review and debugging.</li>
-                            <li>Gained exposure to enterprise-level development practices.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills" class="py-12 border-t border-[#333333]">
-                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Technical Skills</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-lg mb-3 primary-color-text">Languages</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">C</span>
-                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">C#</span>
-                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">Python</span>
-                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">JavaScript</span>
-                            <span class="gemini-button bg-gray-700 text-sm px-3 py-1 text-white">SQL</span>
-                        </div>
-                    </div>
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-lg mb-3 primary-color-text">Frameworks</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="gemini-button bg-blue-800/70 text-sm px-3 py-1 text-white">ASP.NET MVC</span>
-                            <span class="gemini-button bg-blue-800/70 text-sm px-3 py-1 text-white">Bootstrap</span>
-                        </div>
-                    </div>
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-lg mb-3 primary-color-text">Databases</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="gemini-button bg-green-800/70 text-sm px-3 py-1 text-white">MySQL</span>
-                            <span class="gemini-button bg-green-800/70 text-sm px-3 py-1 text-white">SQL Server</span>
-                        </div>
-                    </div>
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-lg mb-3 primary-color-text">Tools</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">Git</span>
-                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">SEO</span>
-                            <span class="gemini-button bg-yellow-800/70 text-sm px-3 py-1 text-white">SDLC</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section id="projects" class="py-12 border-t border-[#333333]">
-                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Featured Projects</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Project 1 -->
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-xl mb-2 text-white">Bus Rental System</h4>
-                        <p class="text-sm text-gray-500 mb-4">Technology Stack: ASP.NET MVC, MySQL, Bootstrap</p>
-                        <p class="text-gray-400 text-sm">
-                            A complete system to manage bus bookings, fleet status, and customer accounts.
-                            This project demonstrates full-stack development proficiency in MVC pattern and relational database management.
-                        </p>
-                    </div>
-                    <!-- Project 2 -->
-                    <div class="gemini-container p-6">
-                        <h4 class="font-bold text-xl mb-2 text-white">Petroleum Management System (PMS)</h4>
-                        <p class="text-sm text-gray-500 mb-4">Technology Stack: C#, SQL Server, Bootstrap</p>
-                        <p class="text-gray-400 text-sm">
-                            An application designed for real-time tracking of fuel inventory, price fluctuations, and sales records.
-                            Highlights expertise in C# backend development and complex SQL Server data handling.
-                        </p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Contact Section (NEW) -->
-            <section id="contact" class="py-12 border-t border-[#333333]">
-                <h3 class="text-3xl font-bold text-center mb-10 modern-text-gradient">Get In Touch</h3>
-                <div class="max-w-xl mx-auto">
-                    <div class="gemini-container p-8">
-                        <!-- 
-                            IMPORTANT: 
-                            To make this form work, you MUST sign up for a service like Formspree (https://formspree.io) 
-                            and replace the action URL below with your unique endpoint. 
-                            The current URL is a placeholder/test URL.
-                        -->
-                        <form action="https://formspree.io/f/xbjnqjjz" method="POST" class="space-y-6">
-                            
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                                <input type="text" id="name" name="name" required class="gemini-input" placeholder="Your Name">
+                        <div class="md:w-1/2 md:pl-10">
+                            <div class="timeline-card bg-white p-6 rounded-2xl shadow-xl relative border-l-4 border-gray-200 card-hover-effect">
+                                <div class="timeline-dot absolute left-1/2 md:-left-2.5 top-0 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-gray-200"></div>
+                                <h3 class="text-xl font-bold text-gray-800">AI Intern (Predictive Model Development)</h3>
+                                <p class="text-base text-gray-600 mb-3 font-semibold">IBM SkillsBuild Program</p>
+                                <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                    <li>Built and trained a classification model using **scikit-learn**, focusing on feature engineering and algorithm tuning.</li>
+                                    <li>Utilized **IBM Watson Studio** for cloud-based model management, including training, version control, and testing.</li>
+                                    <li>Applied **data preprocessing** and rigorous **model evaluation** metrics to ensure result validity.</li>
+                                </ul>
                             </div>
-
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                                <input type="email" id="email" name="_replyto" required class="gemini-input" placeholder="you@example.com">
-                            </div>
-
-                            <div>
-                                <label for="description" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                                <textarea id="description" name="description" rows="5" required class="gemini-input" placeholder="Tell me about your project or opportunity..."></textarea>
-                            </div>
-
-                            <button type="submit" class="gemini-button w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold tracking-wider">
-                                Send Message
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </section>
 
-        </div>
+                <!-- Item 2: Python Automation Scripts -->
+                <div class="timeline-item mt-12 relative" data-skills="Python,OOP">
+                    <div class="md:flex items-center flex-row-reverse">
+                        <div class="md:w-1/2 text-center md:text-left md:pl-10 mb-4 md:mb-0">
+                             <p class="text-sm text-gray-500 font-medium">Aug 2023 – Sep 2023</p>
+                        </div>
+                        <div class="md:w-1/2 md:pr-10">
+                            <div class="timeline-card bg-white p-6 rounded-2xl shadow-xl relative border-l-4 border-gray-200 md:border-l-0 md:border-r-4 card-hover-effect">
+                                <div class="timeline-dot absolute left-1/2 md:-right-2.5 top-0 md:top-1/2 -translate-x-1/2 md:translate-x-1/2 md:-translate-y-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-gray-200"></div>
+                                <h3 class="text-xl font-bold text-gray-800">Python Essentials Intern</h3>
+                                <p class="text-base text-gray-600 mb-3 font-semibold">Cisco Networking Academy</p>
+                                <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                    <li>Practiced and implemented core **Python** concepts and strong **Object-Oriented Programming (OOP)** principles.</li>
+                                    <li>Developed mini projects to automate small, repetitive tasks using Python.</li>
+                                    <li>Improved overall code quality through dedicated debugging and optimization exercises.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="scroll-mt-20 mb-24">
+             <h2 class="text-4xl font-bold text-center mb-10 text-gray-800 border-b pb-4">EDUCATION</h2>
+             <div class="max-w-3xl mx-auto p-8 rounded-2xl shadow-xl text-center card-hover-effect border-l-4 border-green-500 bg-white">
+                 <h3 class="text-2xl font-bold text-gray-800">Bachelor of Engineering in Computer Science</h3>
+                 <p class="text-gray-600 mt-2 text-lg">Rajkot, India</p>
+                 <p class="text-gray-500 text-sm mt-4 pt-4 border-t border-gray-200">2021 – 2025 (Expected Graduation: May 2025)</p>
+             </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-20 py-16 rounded-3xl">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Let's Connect</h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    I'm actively seeking internship opportunities in Python/Data Science and eager to discuss my contributions.
+                </p>
+                
+                <a href="mailto:chavdaajay202@gmail.com" class="inline-flex items-center justify-center px-10 py-3.5 rounded-full transition text-xl font-bold shadow-lg transform hover:scale-105 text-white bg-blue-600 hover:bg-blue-700">
+                    EMAIL ME
+                </a>
+                <div class="mt-6 text-base text-gray-500">
+                    <a href="https://linkedin.com/in/chavdaajay" target="_blank" class="hover:text-blue-600 transition">LinkedIn</a> | 
+                    <a href="https://github.com/CodeWibe" target="_blank" class="hover:text-blue-600 transition">GitHub</a> |
+                    <a href="https://www.credly.com/users/chavda-ajay" target="_blank" class="hover:text-blue-600 transition">Certifications (Credly)</a>
+                </div>
+            </div>
+        </section>
+
     </main>
-
-    <footer class="bg-black text-gray-500 py-8 border-t border-blue-900/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2025 Ajay Chavda. UI inspired by Google Gemini. <a href="#hero" class="primary-color-text hover:text-blue-400">Back to Top</a></p>
+    
+    <footer class="bg-gray-900 text-white mt-20">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p class="text-sm text-gray-400">© 2025 Ajay Chavda. Built for impact.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Role Cycling Animation
+            const roles = ["Python Developer", "Data Scientist", "Web Developer"];
+            let roleIndex = 0;
+            const roleCycler = document.getElementById('role-cycler');
             
-            // --- Gemini API Logic for Interview Generation ---
+            setInterval(() => {
+                roleIndex = (roleIndex + 1) % roles.length;
+                roleCycler.style.opacity = 0;
+                setTimeout(() => {
+                    roleCycler.textContent = roles[roleIndex];
+                    roleCycler.style.opacity = 1;
+                }, 300);
+            }, 3000);
 
-            const apiKey = ""; // API key is provided at runtime
-            const modelName = 'gemini-2.5-flash-preview-05-20';
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+            // Skill Filtering Logic for the Timeline
+            const skillBadges = document.querySelectorAll('.skill-badge');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const resetBtn = document.getElementById('reset-filter');
+            let activeSkill = null;
 
-            // Helper function for exponential backoff retry logic
-            async function fetchWithBackoff(url, options, maxRetries = 5) {
-                for (let i = 0; i < maxRetries; i++) {
-                    try {
-                        const response = await fetch(url, options);
-                        if (!response.ok) {
-                            if (response.status === 429) {
-                                throw new Error('Rate limit exceeded');
-                            }
-                            const errorBody = await response.text();
-                            throw new Error(`API error: ${response.status} ${response.statusText}. Body: ${errorBody}`);
-                        }
-                        return response;
-                    } catch (error) {
-                        if (i === maxRetries - 1 || error.message.includes('API error')) {
-                            throw error; // Last retry or permanent error
-                        }
-                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    }
-                }
-            }
-            
-            // Function to generate and display questions
-            async function generateInterviewQuestions(isSpecificPrompt) {
-                const btn = document.getElementById('generate-questions-btn');
-                const loadingIndicator = document.getElementById('loading-indicator');
-                const outputDiv = document.getElementById('questions-output');
-                const questionsList = document.getElementById('questions-list');
-                const userPromptElement = document.getElementById('user-prompt');
-                const customPrompt = userPromptElement.value.trim();
-
-                // 1. Gather Content from the Resume (or use custom prompt)
-                let userQuery = '';
-                let systemPrompt = '';
+            function filterExperience(skill) {
+                activeSkill = skill;
                 
-                if (isSpecificPrompt && customPrompt) {
-                    // Scenario 1: User asked a specific question
-                    systemPrompt = "You are an expert technical advisor. Answer the user's question clearly, concisely, and accurately, keeping the tone professional but helpful. Format the output neatly using paragraphs.";
-                    userQuery = customPrompt;
+                // Update badge states
+                skillBadges.forEach(b => b.classList.remove('active'));
+                 if (skill === null) {
+                    resetBtn.classList.add('active');
                 } else {
-                    // Scenario 2: Initiate mock interview (default action)
-                    const experienceElements = document.querySelectorAll('#experience ul li');
-                    const experienceText = Array.from(experienceElements).map(li => li.textContent.trim()).join('; ');
-                    const skillElements = document.querySelectorAll('#skills .gemini-button');
-                    const skillsText = Array.from(skillElements).map(span => span.textContent.trim()).join(', ');
-
-                    systemPrompt = "You are a highly demanding Senior Software Engineering Manager conducting a technical interview. Your goal is to generate exactly 5 challenging and specific interview questions (a mix of behavioral and technical) based *only* on the candidate's provided resume data. The questions must be formatted as a numbered list starting with '1.'. Do not include any introduction, conclusion, or conversational text.";
-                    
-                    userQuery = `
-                        Generate interview questions based on this professional profile:
-                        --- EXPERIENCE ---
-                        ${experienceText.trim()}
-                        --- SKILLS ---
-                        ${skillsText.trim()}
-                    `;
-                }
-
-                // 2. UI State Management (Loading)
-                btn.disabled = true;
-                outputDiv.classList.add('hidden');
-                questionsList.innerHTML = '';
-                loadingIndicator.classList.remove('hidden');
-
-                const payload = {
-                    contents: [{ parts: [{ text: userQuery }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] },
-                };
-
-                try {
-                    // 3. Call the Gemini API
-                    const response = await fetchWithBackoff(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-                    const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                    if (generatedText) {
-                        // 4. Format and Display Output
-                        let htmlOutput = '';
-                        
-                        if (isSpecificPrompt && customPrompt) {
-                            // Format for Chat Response
-                            htmlOutput = `
-                                <div class="p-4 gemini-container bg-[#282828] border-none">
-                                    <h4 class="text-white font-bold mb-2 primary-color-text">AI Assistant Response:</h4>
-                                    <p class="text-gray-300 whitespace-pre-line">${generatedText}</p>
-                                </div>
-                            `;
-                            userPromptElement.value = ''; // Clear input field
-                        } else {
-                            // Format for Interview Questions (List)
-                            const questionTitle = `<h4 class="text-xl font-bold primary-color-text mb-4 border-b border-[#333333] pb-2">Technical Assessment Questions:</h4>`;
-                            
-                            const listItems = generatedText
-                                .split('\n')
-                                .filter(line => line.trim().length > 0 && line.match(/^\d+\./))
-                                .map(line => {
-                                    const content = line.replace(/^\d+\.\s*/, '');
-                                    // Clean card style for individual questions
-                                    return `<div class="p-4 bg-gray-900/50 rounded-lg border border-[#333333]">
-                                                <p>
-                                                    <span class="primary-color-text font-semibold mr-2">${line.match(/^\d+/)[0]}.</span> ${content}
-                                                </p>
-                                            </div>`;
-                                })
-                                .join('');
-                            
-                            htmlOutput = questionTitle + listItems;
-                        }
-                        
-                        questionsList.innerHTML = htmlOutput;
-                        
-                    } else {
-                        questionsList.innerHTML = '<p class="p-4 text-red-400 bg-gray-900 rounded-lg">Error: The AI analysis failed to return a response.</p>';
+                    resetBtn.classList.remove('active');
+                    const currentBadge = document.querySelector(`.skill-badge[data-skill="${skill}"]`);
+                    if (currentBadge) {
+                        currentBadge.classList.add('active');
                     }
-                    outputDiv.classList.remove('hidden');
-
-                } catch (error) {
-                    console.error("Gemini API call failed:", error);
-                    questionsList.innerHTML = `<p class="p-4 text-red-400 bg-gray-900 rounded-lg">Connection Error: Failed to reach the AI service. (${error.message})</p>`;
-                    outputDiv.classList.remove('hidden');
-                } finally {
-                    // 5. Reset UI State
-                    loadingIndicator.classList.add('hidden');
-                    btn.disabled = false;
                 }
-            }
+                
+                // Filter timeline items
+                timelineItems.forEach(item => {
+                    const itemSkills = item.getAttribute('data-skills').split(',');
+                    item.classList.remove('highlight', 'filtered');
 
-            // Determine if the user is asking a question or running the mock interview
-            document.getElementById('generate-questions-btn').addEventListener('click', () => {
-                const customPrompt = document.getElementById('user-prompt').value.trim();
-                const isSpecificPrompt = customPrompt.length > 0 && !customPrompt.toLowerCase().includes('interview');
-                generateInterviewQuestions(isSpecificPrompt);
+                    if (skill === null) {
+                         // Show all, no filtering needed
+                        return; 
+                    }
+                    
+                    if (itemSkills.includes(skill)) {
+                        item.classList.add('highlight'); // Highlight relevant item
+                    } else {
+                         item.classList.add('filtered'); // Fade out irrelevant item
+                    }
+                });
+            }
+            
+            skillBadges.forEach(badge => {
+                badge.addEventListener('click', function() {
+                    const skill = this.getAttribute('data-skill');
+                    if (this.id === 'reset-filter' || skill === activeSkill) {
+                       filterExperience(null); // Reset filter
+                    } else {
+                       filterExperience(skill); // Apply new filter
+                    }
+                });
             });
 
-            // Initial state message
-            const initialList = document.getElementById('questions-list');
-            if (initialList) {
-                initialList.innerHTML = '<p class="p-4 text-gray-500 text-center gemini-container bg-[#282828] border-none">Your AI response or interview questions will appear here.</p>';
-                document.getElementById('questions-output').classList.remove('hidden');
-            }
+            // Initialize filter to show all
+            filterExperience(null); 
+
+            // Navbar Shadow Logic
+            const navbar = document.getElementById('navbar');
+            window.onscroll = function() {
+                if (window.pageYOffset > 50) {
+                    navbar.classList.add('shadow-md');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+            };
         });
     </script>
 </body>
